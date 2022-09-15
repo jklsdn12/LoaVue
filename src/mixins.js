@@ -2,16 +2,18 @@ import axios from 'axios';
 
 export default  {
     methods : {
-        async $callAPI(url, method, data) {
+        async $callAPI(url, method, data, rtnfunc) {
             return (
                 await axios({
                     method: method,
                     url: url,
                     data: data,
-                }).catch((e) => {
+                }).then(function(response){
+                    rtnfunc(response.data);
+            }).catch((e) => {
                     console.log(e);
                 })
-            ).data;
+            );
         },
         $base64(file){
             return new Promise(resolve => {

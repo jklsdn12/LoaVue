@@ -35,9 +35,11 @@
       }
     },
     mounted() {
-      if(this.$store.user.id == undefined){
-        this.$router.push('/login');
+      if(this.$store.user == null || this.$store.user.id == undefined){
+        this.$router.push('/userLogin');
       }
+
+      //시분 입력
     }
   }
 </script>

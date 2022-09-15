@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from "@/views/login";
+import Login from "@/views/UserLogin";
+import RaidBoard from "@/views/RaidBoard";
 
 const routes = [
   {
-    path: '/',
+    path: '/userLogin',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/',
+    name: 'RaidBoard',
+    component: RaidBoard
   }
 ]
 

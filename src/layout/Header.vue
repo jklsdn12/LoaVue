@@ -24,7 +24,7 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>-->
 
-          <div v-if="user.email==undefined"><button class="btn btn-danger" type="button" @click="login">로그인</button></div>
+          <div v-if="user.id==undefined"><button class="btn btn-danger" type="button" @click="gotoLogin">로그인</button></div>
           <div v-else><button class="btn btn-danger" type="button" @click="logout">로그아웃</button></div>
         </form>
       </div>
@@ -42,13 +42,13 @@ export default {
     }
   },
   methods: {
-    login(){
-      //로그인 구현
+    gotoLogin(){
+      this.$router.push('/userLogin');
     },
     logout(){
       this.$store.commit("user",{});
       alert("로그아웃");
-      this.$router.push({path:'/'});
+      this.$router.push('/userLogin');
     }
   }
 }
