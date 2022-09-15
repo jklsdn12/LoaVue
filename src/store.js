@@ -7,7 +7,10 @@ const store = createStore({
         return{
             user: {},
             charData: {},
-            minHour: {}
+            minHour: { hour:{},min:{}},
+            userIcon:{},
+            dgIcon:{},
+            servUrl : "http://211.53.209.103:8080/"
         }
     },
     mutations: {
@@ -19,6 +22,12 @@ const store = createStore({
         },
         minHour(state, data){
             state.minHour = data;
+        },
+        dgIconUrl(state, data){
+          state.dgIcon = data;
+        },
+        userIconUrl(state, data){
+          state.userIcon = data;
         }
     },
     getters: {
@@ -29,7 +38,16 @@ const store = createStore({
             return state.charData;
         },
         getMinHour(state){
-            return state.getMinHour;
+            return state.minHour;
+        },
+        getUserIcon(state){
+          return state.userIcon;
+        },
+        getDgIcon(state){
+          return state.dgIconUrl;
+        },
+        getServUrl(state){
+          return state.servUrl;
         }
     },
     plugin: [

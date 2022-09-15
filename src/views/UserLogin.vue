@@ -35,6 +35,7 @@ export default {
       await this.$callAPI("/common/json/login.data",'post',{USERID: this.loginData.id, PASSWD:  this.loginData.pwd},this.loginCom);
     },
     loginCom(res){
+      console.log(res);
       if(res.data == "S" ){
         let data = {id : this.loginData.id }
         this.$store.commit("user",data);
