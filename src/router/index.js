@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from "@/views/UserLogin";
 import RaidBoard from "@/views/RaidBoard";
+import CreateRoom from "@/views/CreateRoom";
 
 const routes = [
   {
@@ -12,7 +13,13 @@ const routes = [
     path: '/',
     name: 'RaidBoard',
     component: RaidBoard
-  }
+  },
+  {
+    path: '/createRoom',
+    name: 'CreateRoom',
+    component: CreateRoom
+  },
+
 ]
 
 const router = createRouter({

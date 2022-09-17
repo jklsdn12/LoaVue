@@ -36,7 +36,10 @@
     },
     mounted() {
       if(this.$store.user == null || this.$store.user.id == undefined){
-        this.$router.push('/userLogin');
+        this.$store.commit("user",{id : localStorage.getItem('id') });
+        if(this.$store.state.user== null || this.$store.state.user == undefined){
+          this.$router.push('/userLogin');
+        }
       }
 
       //시분 초기화

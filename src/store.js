@@ -7,9 +7,9 @@ const store = createStore({
         return{
             user: {},
             charData: {},
-            minHour: { hour:{},min:{}},
-            userIcon:{},
-            dgIcon:{},
+            minHour: { hour:[],min:[]},
+            userIcon:[],
+            dgIcon:[],
             servUrl : "http://211.53.209.103:8080/"
         }
     },
@@ -44,7 +44,7 @@ const store = createStore({
           return state.userIcon;
         },
         getDgIcon(state){
-          return state.dgIconUrl;
+          return state.dgIcon;
         },
         getServUrl(state){
           return state.servUrl;
