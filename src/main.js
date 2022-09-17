@@ -14,6 +14,8 @@ let corsOption = {
     credentials: true                   // true시 설정 내용을 응답헤더에 추가해 줌
 };*/
 
+
+
 createApp(App).use(router).mixin(mixins)
     .use(VueSweetalert2)
     .use(store)
