@@ -44,6 +44,7 @@ export default {
     },
     logout(){
       this.$store.commit("user",{});
+      localStorage.removeItem('id');
       alert("로그아웃 되었습니다.");
       this.$router.push('/userLogin');
     }

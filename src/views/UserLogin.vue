@@ -38,6 +38,7 @@ export default {
       if(res.data == "S" ){
         let data = {id : this.loginData.id }
         this.$store.commit("user",data);
+        localStorage.setItem('id', this.loginData.id );
         this.$router.push('/');
       }else if(res.data == "F_LOGIN_FAIL"){
         alert("아이디 또는 비밀번호가 잘못되었습니다.");

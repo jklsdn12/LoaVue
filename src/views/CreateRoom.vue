@@ -19,9 +19,30 @@
       </option>
     </select>
     <p/>
-    <label for="inputEmail" class="sr-only">던전</label>
 
-    <button class="btn btn-lg btn-primary btn-block" type="button" @click="UserLogin">로그인</button>
+    <label for="inputEmail" class="sr-only">날짜/시간</label>
+    <div>
+      <datepicker v-model="picked"
+                  :clearable="true"
+                  :inputFormat="inputFormat"/>
+    </div>
+    <select v-model="param.HOUR">
+      <option selected="selected">선택</option>
+      <option v-for="(item, index) in dataHour" :value="item.value" v-bind:key="index">
+        {{item.id}}
+      </option>
+    </select>
+    &nbsp;
+    <select v-model="param.MIN" >
+      <option selected="selected">선택</option>
+      <option  v-for="(item2, index) in dataMin"  :value="item2.value" v-bind:key="index">
+        {{item2.id}}
+      </option>
+    </select>
+    <p/>
+
+    <button class="btn btn-lg btn-primary btn-block" type="button" @click="UserLogin">저장</button>
+    <button class="btn btn-lg btn-primary btn-block" type="button" @click="UserLogin">리스트</button>
     <p class="mt-5 mb-3 text-muted"></p>
   </form>
 </template>
@@ -30,9 +51,14 @@
 </style>
 
 <script>
-export default {
-  name: "CreateRoom",
+import Datepicker from 'vue3-datepicker';
+import { ref } from 'vue'
 
+export default {
+  components: {
+    Datepicker
+  },
+  name: "CreateRoom",
   dgImg(){
     return this.$store.state.getDgIcon;
   },
@@ -41,11 +67,23 @@ export default {
       param : {
         NKNAME : "",
         DGCODE:"",
+        HOUR: "",
+        MIN: ""
       },
       charData : this.$store.state.charData,
       dgData :[],
-      dgImgUrl : ""
+      dgImgUrl : "",
+      dataHour : this.$store.state.dataHour,
+      dataMin : this.$store.state.dataMin,
+      picked: ref(new Date())
     };
+  },
+  props: {
+    inputFormat: {
+      type: String,
+      required: false,
+      default: 'yyyyMMdd',
+    }
   },
   methods: {
     async changeChar (){
