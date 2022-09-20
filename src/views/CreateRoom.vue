@@ -9,9 +9,13 @@
           {{ option.TEXT }}
         </option>
     </select>
+    <select  name="포지션" v-model="param.POSTION" >
+      <option value="D">딜러</option>
+      <option value="S">서포터</option>
+    </select>
 
     <label for="inputEmail" class="sr-only">던전</label>
-    <select v-model="param.DGCODE" @change="changeDg"  ref="DGCODE"   name="던전">
+    <select v-model="param.DGCODE" @change="changeDg"  ref="DGCODE"  name="던전">
       <option v-for="option in dgData" :value="option.VAL" v-bind:key="option">
         {{ option.TEXT }}
       </option>
@@ -70,7 +74,8 @@ export default {
         MIN: "",
         DOCTXT: "",
         STDATE: "",
-        STTIME: ""
+        STTIME: "",
+        POSTION: ""
       },
       charData : this.$store.state.charData,
       dgData :[],
@@ -106,15 +111,17 @@ export default {
     },
     changeDg(){
       const dgList = this.dgData;
-      const list = this.$store.state.dgIcon;
       let dgType;
       for(let i=0; i<dgList.length; i++) if(dgList[i].VAL==this.param.DGCODE) dgType =dgList[i].DGTYPE;
-
-
+      this.setDgImg(dgType)
+    },
+    setDgImg(dgType){
+      const list = this.$store.state.dgIcon;
       for(let i=0; i<list.length; i++){
         if(list[i].CODTYPE == 'MSTDG' && list[i].CODNUM == dgType) this.dgImgUrl = this.$store.state.servUrl+list[i].IMGSRC;
       }
-    },
+    }
+    ,
     async saveChk(){
       this.param.STDATE = moment(this.picked).format('YYYYMMDD');
       this.param.STTIME = this.param.HOUR+this.param.MIN+"00";

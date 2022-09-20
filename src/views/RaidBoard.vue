@@ -15,7 +15,7 @@
                 <h4 class="card-title" ref="{{room[i].SEQNO}}">{{room[0].DGNAME}}</h4>
                 <p>{{room[0].DOCTXT}} </p>
                 <p v-if="user.id==room[0].CREUSR">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="updateRoom(room[0].SEQNO)">수정</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" @click="updateRoom(room[0].SEQNO,room[0].DGTYPE,room[0].DGNAME,room[0].STDATE2,room[0].STTIME2,room[0].DOCTXT)">수정</button>
                   <button type="button" class="btn btn-sm btn-danger" @click="deleteRoom(room[0].SEQNO)">방삭제</button>
                 </p>
                 <p class="card-text" :key="j" v-for="(roomData,j) in room">
@@ -138,13 +138,16 @@ export default {
         }
       }
     },
-    async updateRoom(seqno){
-      console.log(seqno);
-      this.$router.push('/createRoom');
-      this.$router.push('/createRoom');
+    async updateRoom(seqno,dgtype,dgname,stdate,sttime,doctxt){
+      // eslint-disable-next-line
+      const reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+      var timeArr = sttime.split(":");
+
+      this.$router.push({path:'/updateRoom', query:{seqno:seqno,dgtype:dgtype,dgname:dgname,stdate:stdate,
+                        hour:timeArr[0].replace(reg, ""), min:timeArr[1].replace(reg, ""),doctxt:doctxt}});
     },
     async createRoom(){
-      this.$router.push('/createRoom');
+      this.$router.push({path:'/createRoom', query:{seqno:"",dgtype:""}});
     }
 
 

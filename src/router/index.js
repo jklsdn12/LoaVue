@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from "@/views/UserLogin";
 import RaidBoard from "@/views/RaidBoard";
 import CreateRoom from "@/views/CreateRoom";
+import UpdateRoom from "@/views/UpdateRoom";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/createRoom',
     name: 'CreateRoom',
     component: CreateRoom
+  },
+  {
+    path: '/updateRoom',
+    name: 'UpdateRoom',
+    component: UpdateRoom
   },
 
 ]
