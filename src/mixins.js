@@ -9,6 +9,11 @@ export default  {
                     url: url,
                     data: data,
                 }).then(function(response){
+                    if(response.data.length > 10 && response.data.indexOf("Session empty") > -1){
+                        alert("세션이 종료되었습니다. 다시 로그인 바랍니다.");
+                        localStorage.setItem('id', "" );
+                        location.href="/userLogin";
+                    }
                     rtnfunc(response.data);
             }).catch((e) => {
                     console.log(e);
