@@ -1,6 +1,6 @@
 <template>
   <footer class="mt-5 py-5 bg-dark text-white">
-    공사중
+    테스트 버전입니다. 버그는 호출주세요.
   </footer>
 </template>
 

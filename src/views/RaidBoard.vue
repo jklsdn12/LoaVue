@@ -23,14 +23,25 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">참가</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" @click="openJoin(i)">참가</button>
                     <div v-if="chkJoinUser(room)==true"><button type="button" class="btn btn-sm btn-outline-secondary" @click="disjoinUser(room)">등록삭제</button></div>
                   </div>
                   <small class="text-dark">{{room[0].STDATE2}} {{room[0].STTIME2}}</small>
                 </div>
               </div>
             </div>
-
+            <div v-if="joinchk[i]">
+              <select v-model="param.NKNAME"  ref="NKNAME" name="캐릭터">
+                <option v-for="option in charData" :value="option.VAL" v-bind:key="option" >
+                  {{ option.TEXT }}
+                </option>
+              </select>
+              <select  name="포지션" v-model="param.POSTION" >
+                <option value="D">딜러</option>
+                <option value="S">서포터</option>
+              </select>
+              <button type="button" class="btn btn-sm btn-outline-secondary" @click="chkJoin(room[0].SEQNO,room[0].DGTYPE,room[0].STDATE)">저장</button>
+            </div>
         </div>
       </div>
     </div>
@@ -47,10 +58,19 @@ export default {
   },
   data() {
     return {
+      param : {
+        NKNAME : "",
+        SEQNO: "",
+        POSTION: "",
+        DGTYPE: "",
+        STDATE: ""
+      },
       roomList:[],
       usrIcon:[],
       dgIcon:[],
-      servUrl:"http://211.53.209.103:8080/"
+      servUrl:"http://211.53.209.103:8080/",
+      joinchk:[],
+      charData:[]
     };
   },
   methods: {
@@ -59,6 +79,7 @@ export default {
     },
     setCharData(res){
       this.$store.commit("charData",res.data); //VAL,TEXT,OPT arr
+      this.charData = res.data;
     },
     async searchList(){ //방 조회
       this.roomList = [];
@@ -72,6 +93,7 @@ export default {
               roomArr = new Array();
               this.roomList.push(roomArr);
               chkSeq=res.data[i].SEQNO;
+              this.joinchk.push(false);
           }
           roomArr.push(res.data[i]);
         }
@@ -148,6 +170,51 @@ export default {
     },
     async createRoom(){
       this.$router.push({path:'/createRoom', query:{seqno:"",dgtype:""}});
+    },
+    openJoin(seq){
+      for(let i=0; i<this.joinchk.length; i++){
+        this.joinchk[i]=false;
+      }
+      this.joinchk[seq]=true;
+    },
+    async chkJoin(seqno,dgtype,stdate){
+      this.param.SEQNO = seqno;
+      this.param.DGTYPE = dgtype;
+      this.param.STDATE = stdate;
+
+      await this.$callAPI("/userRoom/json/chkJoin.data", 'post', this.param
+          , (res) => {
+
+            if(res.data >= 3){
+              alert("주간 군단장 최대횟수를 초과하였습니다.(3회)");
+              return;
+            }
+            this.joinRoom();
+          });
+    },
+    async joinRoom(){
+
+      await this.$callAPI("/userRoom/json/joinRoom.data", 'post', this.param
+          , (res) => {
+
+            if(res && res.data){
+              if(res.data=="S"){
+                alert("저장에 성공하였습니다.");
+                this.$router.go();
+              }else if(res.data == "E3"){
+                alert("하나의 레이드에 두개의 캐릭을 넣을 수 없습니다.");
+              }else if(res.data == "E4"){
+                alert("인원 제한을 초과하였습니다.");
+              }else if(res.data == "E5"){
+                alert("던전 입장 레벨 미만의 캐릭터 입니다.");
+              }else{
+                alert("에러 발생");
+              }
+
+            }else{
+              alert("알 수 없는 에러 발생");
+            }
+          });
     }
 
 

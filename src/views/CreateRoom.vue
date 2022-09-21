@@ -106,7 +106,6 @@ export default {
       await this.$callAPI("/userRoom/json/getDgData.data", 'post', this.param
         , (res) => {
           this.dgData = res.data;
-          console.log(res.data);
         });
     },
     changeDg(){

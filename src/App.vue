@@ -37,6 +37,7 @@
     mounted() {
       if(this.$store.user == null || this.$store.user.id == undefined){
         this.$store.commit("user",{id : localStorage.getItem('id') });
+        console.log(this.$store.state.user);
         if(this.$store.state.user== null || this.$store.state.user == undefined){
           this.$router.push('/userLogin');
         }
