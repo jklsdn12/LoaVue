@@ -17,5 +17,5 @@ let corsOption = {
 createApp(App).use(router).mixin(mixins)
     .use(VueSweetalert2)
     .use(store)
-  // .use(cors(corsOption))
+
     .mount('#app')

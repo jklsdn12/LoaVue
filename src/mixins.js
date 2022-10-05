@@ -1,4 +1,5 @@
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 export default  {
     methods : {
@@ -7,7 +8,7 @@ export default  {
                 await axios({
                     method: method,
                     url: url,
-                    data: data,
+                    data: data
                 }).then(function(response){
                     if(response.data.length > 10 && response.data.indexOf("Session empty") > -1){
                         alert("세션이 종료되었습니다. 다시 로그인 바랍니다.");

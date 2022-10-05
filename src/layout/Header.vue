@@ -11,7 +11,7 @@
             <router-link class="nav-link" to="/">홈</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/changePwd">페스워드변경</router-link>
+            <router-link class="nav-link active" to="/changePwd">스워드변경</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/" @click="getUserData">캐릭터 정보 업데이트</router-link>
